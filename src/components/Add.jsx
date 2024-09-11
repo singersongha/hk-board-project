@@ -1,5 +1,5 @@
 import { useState } from "react";
-//import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Add = () => {
   const [board, setBoard] = useState({ title: "", content: "", id: 0 });
@@ -42,7 +42,9 @@ const Add = () => {
       <div>
         <ul>
           {boardList.map((board) => (
-            <li key={board.id}>{board.title}</li>
+            <li key={board.id}>
+              <Link to={`/boards/${board.id}`}>{board.title}</Link>
+            </li>
           ))}
         </ul>
       </div>
