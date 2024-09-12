@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { boardListState } from "../store/boardList";
+import { addBoard, getBoards } from "../api/boards";
 
 const Add = () => {
-  const [board, setBoard] = useState({ title: "", content: "", id: 0 });
+  const [board, setBoard] = useState({ title: "", content: "" });
 
   const [boardList, setBoardList] = useRecoilState(boardListState);
 
@@ -13,14 +14,20 @@ const Add = () => {
     setBoard({ ...board, [name]: value });
   };
 
-  // add 버튼을 눌렀을 때
-  const onClick = (e) => {
-    e.preventDefault();
-    if (board.title && board.content) {
-      setBoardList([...boardList, { ...board, id: boardList.length + 1 }]);
-      setBoard({ title: "", content: "", id: board.id + 1 });
-    }
+  const addPost = async () => {
+    const data = await addBoard({ title: board.title, content: board.content });
+    setBoardList(...boardList, data);
+    setBoard({ title: "", content: "" });
   };
+
+  const getPosts = async () => {
+    const data = await getBoards();
+    setBoardList(data);
+  };
+
+  useEffect(() => {
+    getPosts();
+  }, []);
 
   return (
     <>
@@ -39,13 +46,13 @@ const Add = () => {
           onChange={handleInput}
         ></textarea>
         <br />
-        <button onClick={onClick}>add</button>
+        <button onClick={addPost}>add</button>
       </div>
       <div>
         <ul>
-          {boardList.map((board) => (
-            <li key={board.id}>
-              <Link to={`/boards/${board.id}`}>{board.title}</Link>
+          {boardList.map(({ title, id }) => (
+            <li key={id}>
+              <Link to={`/boards/${id}`}>{title}</Link>
             </li>
           ))}
         </ul>

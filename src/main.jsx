@@ -5,8 +5,8 @@ import Add from "./components/Add.jsx";
 import Post from "./components/Post.jsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { RecoilRoot } from "recoil";
-import Register from "./components2/Register.jsx";
-import Login from "./components2/Login.jsx";
+import Register from "./components/Register.jsx";
+import Login from "./components/Login.jsx";
 
 const router = createBrowserRouter([
   {

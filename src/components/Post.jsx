@@ -1,18 +1,20 @@
+/* eslint-disable no-unused-vars */
 import { Link, useParams } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { boardListState } from "../store/boardList";
 import { useEffect, useState } from "react";
+import { getBoardById, updateBoard } from "../api/boards";
 
 const Post = () => {
-  const [postBoard, setPostBoard] = useState({ title: "", content: "", id: 0 });
-
-  const [boardList, setBoardList] = useRecoilState(boardListState);
-
-  const [editPost, setEditPost] = useState({
-    title: postBoard.title,
-    content: postBoard.title,
-    id: postBoard.id,
+  const [postBoard, setPostBoard] = useState({
+    title: "",
+    content: "",
+    id: 1,
   });
+  // const [board, setBoard] = useState([]);
+  // const [boardList, setBoardList] = useRecoilState(boardListState);
+
+  // const [editPost, setEditPost] = useState(false);
 
   const { id } = useParams();
 
@@ -21,18 +23,22 @@ const Post = () => {
     setPostBoard({ ...postBoard, [name]: value });
   };
 
-  useEffect(() => {
-    const data = boardList.find((post) => post.id === parseInt(id));
+  const getPostsId = async () => {
+    const data = await getBoardById(id);
     setPostBoard(data);
-    // console.log("dldi");
-  }, []);
-
-  const editBoard = (e) => {
-    const { name, value } = e.target;
-    setEditPost({ ...editPost, [name]: value });
   };
 
-  const deleteBoard = () => {};
+  useEffect(() => {
+    getPostsId();
+  }, []);
+
+  const updatePost = async () => {
+    const data = await updateBoard(id, {
+      title: postBoard.title,
+      content: postBoard.content,
+    });
+    setPostBoard(data);
+  };
 
   return (
     <div>
@@ -50,11 +56,11 @@ const Post = () => {
         onChange={handleInput}
       ></textarea>
       <br />
-      {/* {board ? <Add board={board} /> : "not found"} <br /> */}
-      <button onClick={editBoard}>
+
+      <button onClick={updatePost}>
         <Link to="/">수정</Link>
       </button>
-      <button onClick={deleteBoard}>
+      <button>
         <Link to="/">삭제</Link>
       </button>
     </div>
