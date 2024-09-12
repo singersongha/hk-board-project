@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { boardListState } from "../store/boardList";
 
 const Add = () => {
   const [board, setBoard] = useState({ title: "", content: "", id: 0 });
-  //const board = { id, title, content };
-  const [boardList, setBoardList] = useState([]);
+
+  const [boardList, setBoardList] = useRecoilState(boardListState);
 
   const handleInput = (e) => {
     const { name, value } = e.target;
