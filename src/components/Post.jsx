@@ -11,12 +11,7 @@ const Post = () => {
   const [postBoard, setPostBoard] = useState({
     title: "",
     content: "",
-    id: 1,
   });
-  // const [board, setBoard] = useState([]);
-  // const [boardList, setBoardList] = useRecoilState(boardListState);
-
-  // const [editPost, setEditPost] = useState(false);
 
   const { id } = useParams();
 
@@ -32,7 +27,7 @@ const Post = () => {
 
   useEffect(() => {
     getPostsId();
-  }, []);
+  }, [id]);
 
   const updatePost = async () => {
     const data = await updateBoard(id, {
@@ -40,7 +35,7 @@ const Post = () => {
       content: postBoard.content,
     });
     setPostBoard(data);
-    navigate("/");
+    navigate("/boards");
   };
 
   if (!postBoard.title && !postBoard.content) {
@@ -48,8 +43,8 @@ const Post = () => {
   }
 
   const deletePost = async () => {
-    const data = await deleteBoard(id);
-    setPostBoard(data);
+    await deleteBoard(id);
+    navigate("/boards");
   };
 
   return (
@@ -70,9 +65,7 @@ const Post = () => {
       <br />
 
       <button onClick={updatePost}>수정</button>
-      <button onClick={deletePost}>
-        <Link to="/">삭제</Link>
-      </button>
+      <button onClick={deletePost}>삭제</button>
     </div>
   );
 };

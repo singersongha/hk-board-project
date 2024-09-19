@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useRecoilState } from "recoil";
-import { boardListState } from "../store/boardList";
+
 import { addBoard, getBoards } from "../api/boards";
 
 const Add = () => {
   const [board, setBoard] = useState({ title: "", content: "" });
 
-  const [boardList, setBoardList] = useRecoilState(boardListState);
+  const [boardList, setBoardList] = useState([]);
 
   const handleInput = (e) => {
     const { name, value } = e.target;
@@ -50,8 +49,8 @@ const Add = () => {
       </div>
       <div>
         <ul>
-          {boardList.map(({ title, id }, index) => (
-            <li key={id || index}>
+          {boardList.map(({ title, id }) => (
+            <li key={id}>
               <Link to={`/boards/${id}`}>{title}</Link>
             </li>
           ))}

@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { register } from "../api/auth";
+import { login } from "../api/auth";
 import { useNavigate } from "react-router-dom";
 
 const name = "";
 const password = "";
 const Login = () => {
-  const navigate = useNavigate(); //페이지 이동을 위한 react-router-dom hook
+  const navigate = useNavigate(); // 페이지 이동을 위한 react-router-dom hook
   const [state, setState] = useState({ name, password });
   const [err, setErr] = useState("");
   const onChange = (e) => {
@@ -15,9 +15,9 @@ const Login = () => {
   const onSubmit = async () => {
     setErr("");
     try {
-      const data = await register(state);
+      const data = await login(state);
       localStorage.setItem("uid", data.id);
-      navigate("/login");
+      navigate("/boards"); // 여기에 path 입력
     } catch (error) {
       const data = error.response.data;
       setErr(data);
