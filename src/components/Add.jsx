@@ -16,7 +16,7 @@ const Add = () => {
 
   const addPost = async () => {
     const data = await addBoard({ title: board.title, content: board.content });
-    setBoardList(...boardList, data);
+    setBoardList((boardList) => [...boardList, data]);
     setBoard({ title: "", content: "" });
   };
 
@@ -50,8 +50,8 @@ const Add = () => {
       </div>
       <div>
         <ul>
-          {boardList.map(({ title, id }) => (
-            <li key={id}>
+          {boardList.map(({ title, id }, index) => (
+            <li key={id || index}>
               <Link to={`/boards/${id}`}>{title}</Link>
             </li>
           ))}

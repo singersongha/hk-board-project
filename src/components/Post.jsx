@@ -1,11 +1,13 @@
 /* eslint-disable no-unused-vars */
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { boardListState } from "../store/boardList";
 import { useEffect, useState } from "react";
-import { getBoardById, updateBoard } from "../api/boards";
+import { deleteBoard, getBoardById, updateBoard } from "../api/boards";
 
 const Post = () => {
+  const navigate = useNavigate();
+
   const [postBoard, setPostBoard] = useState({
     title: "",
     content: "",
@@ -38,6 +40,16 @@ const Post = () => {
       content: postBoard.content,
     });
     setPostBoard(data);
+    navigate("/");
+  };
+
+  if (!postBoard.title && !postBoard.content) {
+    return <div>Loading...</div>;
+  }
+
+  const deletePost = async () => {
+    const data = await deleteBoard(id);
+    setPostBoard(data);
   };
 
   return (
@@ -45,22 +57,20 @@ const Post = () => {
       <h3>Title</h3>
       <input
         type="text"
-        value={postBoard.title}
+        value={postBoard.title || ""}
         name="title"
         onChange={handleInput}
       />
       <h3>content</h3>
       <textarea
         name="content"
-        value={postBoard.content}
+        value={postBoard.content || ""}
         onChange={handleInput}
       ></textarea>
       <br />
 
-      <button onClick={updatePost}>
-        <Link to="/">수정</Link>
-      </button>
-      <button>
+      <button onClick={updatePost}>수정</button>
+      <button onClick={deletePost}>
         <Link to="/">삭제</Link>
       </button>
     </div>

@@ -10,7 +10,7 @@ import Login from "./components/Login.jsx";
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/boards",
     element: <Add />,
   },
   {
