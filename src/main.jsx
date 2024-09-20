@@ -1,6 +1,5 @@
 import ReactDOM from "react-dom/client";
-//import App from "./App.jsx";
-import "./index.css";
+import "./main.css";
 import Add from "./components/Add.jsx";
 import Post from "./components/Post.jsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";

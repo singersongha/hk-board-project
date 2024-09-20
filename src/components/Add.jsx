@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
 import { addBoard, getBoards } from "../api/boards";
 
 const Add = () => {
@@ -15,7 +14,8 @@ const Add = () => {
 
   const addPost = async () => {
     const data = await addBoard({ title: board.title, content: board.content });
-    setBoardList((boardList) => [...boardList, data]);
+    const newBoardList = await getBoards();
+    setBoardList((boardList) => [...newBoardList, data]);
     setBoard({ title: "", content: "" });
   };
 
@@ -29,34 +29,47 @@ const Add = () => {
   }, []);
 
   return (
-    <>
-      <div>
-        <h3>Title</h3>
+    <div className="w-full px-[200px] py-[50px] bg-[#2A2B37]">
+      <div className="flex flex-col align-center">
         <input
+          className="min-h-[20px] px-[10px] rounded text-white bg-[#1F2028] "
           type="text"
           value={board.title}
           name="title"
           onChange={handleInput}
+          placeholder="title"
         />
-        <h3>content</h3>
+        <br />
         <textarea
+          className="min-h-[100px] bg-[#1F2028] px-[10px] rounded text-white"
           name="content"
           value={board.content}
           onChange={handleInput}
+          placeholder="content"
         ></textarea>
         <br />
-        <button onClick={addPost}>add</button>
+        <div className="flex justify-center">
+          <button
+            className="text-[#1F2028] bg-[#FCECAF] rounded w-[70px] h-[35px]"
+            onClick={addPost}
+          >
+            add
+          </button>
+        </div>
       </div>
-      <div>
-        <ul>
+      <div className="mt-[30px]">
+        <ul className="text-white">
           {boardList.map(({ title, id }) => (
-            <li key={id}>
+            <li
+              className="border-b-[1px] border-[#FCECAF] mb-[10px] px-[10px]"
+              key={id}
+            >
               <Link to={`/boards/${id}`}>{title}</Link>
             </li>
           ))}
         </ul>
       </div>
-    </>
+    </div>
   );
 };
 

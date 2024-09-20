@@ -1,7 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { useRecoilState } from "recoil";
-import { boardListState } from "../store/boardList";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { deleteBoard, getBoardById, updateBoard } from "../api/boards";
 
@@ -39,7 +37,11 @@ const Post = () => {
   };
 
   if (!postBoard.title && !postBoard.content) {
-    return <div>Loading...</div>;
+    return (
+      <div className="w-full p-[300px] bg-[#2A2B37]">
+        <div className="flex justify-center text-[#FCECAF]">Loading...</div>
+      </div>
+    );
   }
 
   const deletePost = async () => {
@@ -48,24 +50,38 @@ const Post = () => {
   };
 
   return (
-    <div>
-      <h3>Title</h3>
-      <input
-        type="text"
-        value={postBoard.title || ""}
-        name="title"
-        onChange={handleInput}
-      />
-      <h3>content</h3>
-      <textarea
-        name="content"
-        value={postBoard.content || ""}
-        onChange={handleInput}
-      ></textarea>
-      <br />
-
-      <button onClick={updatePost}>수정</button>
-      <button onClick={deletePost}>삭제</button>
+    <div className="w-full h-screen px-[200px] py-[50px] bg-[#2A2B37]">
+      <div className="flex flex-col align-center">
+        <input
+          className="min-h-[20px] px-[10px] rounded text-white bg-[#1F2028]"
+          type="text"
+          value={postBoard.title || ""}
+          name="title"
+          onChange={handleInput}
+        />
+        <br />
+        <textarea
+          className="min-h-[100px] bg-[#1F2028] px-[10px] rounded text-white"
+          name="content"
+          value={postBoard.content || ""}
+          onChange={handleInput}
+        ></textarea>
+        <br />
+        <div className="flex justify-center">
+          <button
+            className="text-[#1F2028] bg-[#FCECAF] rounded w-[70px] h-[35px] mr-[10px]"
+            onClick={updatePost}
+          >
+            수정
+          </button>
+          <button
+            className="text-[#1F2028] bg-[#FCECAF] rounded w-[70px] h-[35px]"
+            onClick={deletePost}
+          >
+            삭제
+          </button>
+        </div>
+      </div>
     </div>
   );
 };
