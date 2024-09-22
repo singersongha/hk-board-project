@@ -25,7 +25,7 @@ const Post = () => {
 
   useEffect(() => {
     getPostsId();
-  }, [id]);
+  }, []);
 
   const updatePost = async () => {
     const data = await updateBoard(id, {
@@ -53,7 +53,7 @@ const Post = () => {
     <div className="w-full h-screen px-[200px] py-[50px] bg-[#2A2B37]">
       <div className="flex flex-col align-center">
         <input
-          className="min-h-[20px] px-[10px] rounded text-white bg-[#1F2028]"
+          className="min-h-[25px] px-[10px] rounded text-white bg-[#1F2028]"
           type="text"
           value={postBoard.title || ""}
           name="title"
@@ -69,16 +69,16 @@ const Post = () => {
         <br />
         <div className="flex justify-center">
           <button
-            className="text-[#1F2028] bg-[#FCECAF] rounded w-[70px] h-[35px] mr-[10px]"
+            className="text-[#1F2028] bg-[#FCECAF] rounded w-[90px] h-[35px] mr-[10px] font-semibold"
             onClick={updatePost}
           >
-            수정
+            Update
           </button>
           <button
-            className="text-[#1F2028] bg-[#FCECAF] rounded w-[70px] h-[35px]"
+            className="text-[#1F2028] bg-[#FCECAF] rounded w-[90px] h-[35px] font-semibold"
             onClick={deletePost}
           >
-            삭제
+            Delete
           </button>
         </div>
       </div>

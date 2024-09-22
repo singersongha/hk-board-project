@@ -7,6 +7,8 @@ const Add = () => {
 
   const [boardList, setBoardList] = useState([]);
 
+  const [userPostId, setUserPostId] = useState(null);
+
   const handleInput = (e) => {
     const { name, value } = e.target;
     setBoard({ ...board, [name]: value });
@@ -14,8 +16,10 @@ const Add = () => {
 
   const addPost = async () => {
     const data = await addBoard({ title: board.title, content: board.content });
+    setUserPostId(data.id);
+    console.log(data);
     const newBoardList = await getBoards();
-    setBoardList((boardList) => [...newBoardList, data]);
+    setBoardList(newBoardList);
     setBoard({ title: "", content: "" });
   };
 
@@ -32,7 +36,7 @@ const Add = () => {
     <div className="w-full px-[200px] py-[50px] bg-[#2A2B37]">
       <div className="flex flex-col align-center">
         <input
-          className="min-h-[20px] px-[10px] rounded text-white bg-[#1F2028] "
+          className="min-h-[25px] px-[10px] rounded text-white bg-[#1F2028] "
           type="text"
           value={board.title}
           name="title"
@@ -61,7 +65,9 @@ const Add = () => {
         <ul className="text-white">
           {boardList.map(({ title, id }) => (
             <li
-              className="border-b-[1px] border-[#FCECAF] mb-[10px] px-[10px]"
+              className={`border-b-[1px] border-[#FCECAF] mb-[10px] px-[10px] ${
+                id === userPostId ? "text-[#FCECAF] font-bold" : ""
+              }`}
               key={id}
             >
               <Link to={`/boards/${id}`}>{title}</Link>
