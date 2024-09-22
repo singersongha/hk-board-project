@@ -37,7 +37,7 @@ const Add = () => {
           value={board.title}
           name="title"
           onChange={handleInput}
-          placeholder="title"
+          placeholder="TITLE"
         />
         <br />
         <textarea
@@ -45,15 +45,15 @@ const Add = () => {
           name="content"
           value={board.content}
           onChange={handleInput}
-          placeholder="content"
+          placeholder="CONTENT"
         ></textarea>
         <br />
         <div className="flex justify-center">
           <button
-            className="text-[#1F2028] bg-[#FCECAF] rounded w-[70px] h-[35px]"
+            className="text-[#1F2028] bg-[#FCECAF] rounded-sm w-[100px] h-[35px] font-semibold"
             onClick={addPost}
           >
-            add
+            ADD
           </button>
         </div>
       </div>

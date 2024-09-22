@@ -24,11 +24,40 @@ const Login = () => {
     }
   };
   return (
-    <div>
-      <h1 style={{ color: "red" }}>{err}</h1>
-      <input type="text" name="name" onChange={onChange} />
-      <input type="password" name="password" onChange={onChange} />
-      <button onClick={onSubmit}>로그인</button>
+    <div className="w-full h-screen px-[200px] py-[50px] bg-[#1F2028] flex justify-center">
+      <div className="mt-[40px] w-[420px] h-[420px] bg-[#2A2B37] rounded-sm">
+        <h1 className="text-center text-[#CAC3C9] font-bold text-[32px] mt-[50px] mb-[40px]">
+          Log In
+        </h1>
+        <h2 className="text-[#FCECAF] text-center text-[13px]">{err}</h2>
+        <div className="flex justify-center">
+          <input
+            className="min-h-[40px] mt-[10px] w-[250px] px-[10px] rounded text-white bg-[#1F2028] mb-[-10px]"
+            type="text"
+            name="name"
+            placeholder="ID"
+            onChange={onChange}
+          />
+        </div>
+        <br />
+        <div className="flex justify-center">
+          <input
+            className="min-h-[40px] w-[250px] px-[10px] rounded text-white bg-[#1F2028]"
+            type="password"
+            name="password"
+            placeholder="Password"
+            onChange={onChange}
+          />
+        </div>
+        <div className="flex justify-center">
+          <button
+            className="mt-[45px] w-[100px] h-[40px] rounded-sm bg-[#FCECAF] text-[#2A2B37] text-[13px] font-semibold"
+            onClick={onSubmit}
+          >
+            SUBMIT
+          </button>
+        </div>
+      </div>
     </div>
   );
 };
